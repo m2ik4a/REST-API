@@ -158,6 +158,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TodoEntry'
+        405:
+          description: falsche Methode verwendet
+          content: {}
+        500:
+          description: Fehler im Server
+          content: {}
+          
   /todo-list/{list_id}/entry/{entry_id}:
     put:
       tags:
