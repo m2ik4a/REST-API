@@ -91,7 +91,10 @@ paths:
       responses:
         200:
           description: Listen zurückgeliefert
-          content: {}
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoList'
         404: 
           description: falsche ID
           content: {}
