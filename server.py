@@ -72,7 +72,7 @@ def handle_list(list_id):
     elif request.method == 'DELETE':
         # delete list with given id
         todo_lists.remove(list_item)
-        return '', 200
+        return jsonify({'msg': 'success'}), 200
     else:
         abort(405)
 
@@ -84,7 +84,6 @@ def add_new_list():
         abort(405)
     # make JSON from POST data (even if content type is not set correctly)
     new_list = request.get_json(force=True)
-    print('Got new list to be added: {}'.format(new_list))
     # create id for new list, save it and return the list with id
     new_list['id'] = uuid.uuid4()
     todo_lists.append(new_list)
@@ -96,11 +95,8 @@ def add_new_entry(list_id):
     # if the given method is invalid, return status code 405
     if request.method != 'POST':
         abort(405)
-
     # make JSON from POST data (even if content type is not set correctly)
     new_entry = request.get_json(force=True)
-    print('Got new list to be added: {}'.format(new_entry))
-
     # expand the json with an unique id and the list id
     new_entry = new_entry + {'id': uuid.uuid4(), 'list': list_id}
     todos.append(new_entry)
@@ -116,7 +112,6 @@ def update_entry(list_id, entry_id):
         if l['id'] == list_id:
             list_item = l
             break
-
     entry_item = None
     for l in todos:
         if l['id'] == entry_id:
@@ -124,13 +119,11 @@ def update_entry(list_id, entry_id):
             break
     if request.method == 'PUT':
         # find all todo entries for the todo list with the given id
-        print('Returning todo list...')
         return jsonify([i for i in todos if i['list'] == list_id])
     elif request.method == 'DELETE':
         # delete entry with given id
-        print('Deleting entry...')
         todo_lists.remove(entry_item)
-        return '', 200
+        return jsonify({'msg': 'success'}), 200
     else:
         abort(405)
 
