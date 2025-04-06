@@ -253,7 +253,12 @@ paths:
       responses:
         200:
           description: Listen zurückgeliefert
-          content: {}
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoList'
         405:
           description: falsche Methode verwendet
           content: {}
